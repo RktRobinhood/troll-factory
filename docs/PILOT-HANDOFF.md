@@ -1,6 +1,6 @@
 # Troll Factory: classroom pilot
 
-**Play:** open `index.html` directly in a modern browser or serve this directory as static files. No setup or network required. Play as a desk editor at the fictional Harbor Desk. Teacher materials: `teacher.html`; note-ready print view: `takeaway.html`.
+**Play:** open `site/index.html` directly in a modern browser or serve this directory as static files. No setup or network required. Play as a desk editor at the fictional Harbor Desk. Teacher materials: `teacher.html`; note-ready print view: `takeaway.html`.
 
 ## Layout
 - `episodes/harbor-hall.js`: data-only fictional briefing, sources with origin IDs, claim verdicts, publication branches, recovery and transfer. All scenario text, roles and names are original; no historical screenshot/person/face or live content.
@@ -13,4 +13,4 @@ Desk editor/shift lead, one civic venue-change incident, one later piece of evid
 
 ## Reproduction
 `node site/qa/engine.test.cjs` exercises state transitions and six branches.
-`TMPDIR=<writable scratch dir> node site/qa/browser.cjs` with Playwright installed; optionally set `CHROMIUM_PATH` and `PLAYWRIGHT_MODULE`. See `qa/QA.md` for exact scope and evidence once run.
+`TMPDIR=<writable scratch dir> node site/qa/browser.cjs` with Playwright installed; optionally set `CHROMIUM_PATH` and `PLAYWRIGHT_MODULE`. See `site/qa/QA.md` for exact scope and evidence once run.

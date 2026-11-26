@@ -12,4 +12,4 @@ An independently authored browser game about editorial judgment, evidence and ci
 - [Publishing and verification](docs/PAGES.md)
 - [Pilot QA](site/qa/QA.md)
 
-The classroom build will be served from a separate Pages branch containing only the playable static files. The development notes are source documentation, not game content. No project-wide reuse license has been chosen yet.
+The classroom build is published from a separate Pages branch containing only the playable static files. The development notes are source documentation, not game content. No project-wide reuse license has been chosen yet.

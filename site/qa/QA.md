@@ -8,4 +8,4 @@ Tested the authored first episode as a self-paced classroom pilot. It is not a c
 - Separate weak-evidence probe starts with circulating post + resident only. The player can still make a considered editorial decision, but both the evidence desk and decision page point clearly to the full notice and firsthand room check. Following either returns to the right source and preserves earlier thinking; after both are opened the reminder goes away. Restart clears all choices.
 - The 320 dark and 390 light screenshots, the desktop briefing and review, the mobile comparison and the transfer were visually inspected. Playwright emulates narrow touch viewports, not full physical handset coverage; a native screen-reader session and a live classroom trial were not run. Play time is an estimate, not measured efficacy.
 
-`browser.log` is the exact result. `screens/` contains local review captures and should not be deployed with the classroom site.
+Use the browser test command to reproduce these results. Test captures and logs do not belong in the classroom site.
