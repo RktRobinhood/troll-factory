@@ -152,3 +152,38 @@ select{min-height:44px;min-width:0;color:var(--ink);border:1px solid var(--line)
   .shell { width:100%; }
   .sources,.reader,.compare,.judge,.record,.followup { box-shadow:none; }
 }
+
+/* Native appearance picker. Avoid a separate modal or any saved student state. */
+:root[data-theme="light"] {
+  color-scheme:light;--bg:#f0eadc;--paper:#fffaf0;--ink:#172a32;--muted:#455962;
+  --line:#a2a5a0;--soft:#e7e3d7;--green:#204e5d;--lift:#d9e8e7;
+  --dark:#16303a;--on-dark:#fff2db;--amber:#984227;--focus:#a13624;
+  --rule:#233e47;--print-edge:#d5ccba;--grid:rgba(55,74,78,.09);
+}
+:root[data-theme="dark"] {
+  color-scheme:dark;--bg:#13252d;--paper:#1c323b;--ink:#f3ead7;--muted:#bfced0;
+  --line:#627982;--soft:#233a43;--green:#b8e3e7;--lift:#274853;
+  --dark:#0d1c23;--on-dark:#fcf0d9;--amber:#ffaf92;--focus:#ffae8b;
+  --rule:#88aeb5;--print-edge:#0c1c24;--grid:rgba(185,210,211,.08);
+}
+.site-theme { display:inline-flex; }
+.site-theme select { min-height:44px;padding:4px 5px;font:.77rem/1.1 var(--mono);border-color:var(--line); }
+.mast .site-theme select { color:#fff2db;background:#142c36;border-color:#9badaf;color-scheme:dark; }
+.static-doc > header { display:flex;gap:14px;align-items:center;justify-content:space-between;padding-top:10px; }
+@media(max-width:680px) {
+  .mast-end { gap:7px; }
+  .mast .site-theme select { font-size:.7rem;padding-inline:3px; }
+}
+@media(max-width:420px) {
+  .mast-inner { gap:6px; }
+  .mast .wordmark { gap:5px; }
+  .mast .wordmark strong { font-size:.83rem;letter-spacing:.065em; }
+  .mast .wordmark div span { font-size:.54rem; }
+  .mast .teacher-link { font-size:.72rem; }
+}
+@media(max-width:374px) {
+  .mast .wordmark strong { font-size:.75rem; }
+}
+@media print {
+  :root[data-theme] { color-scheme:light;--paper:#fff;--ink:#000;--muted:#333;--line:#aaa;--green:#172a32; }
+}

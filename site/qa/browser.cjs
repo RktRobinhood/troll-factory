@@ -168,6 +168,58 @@ async function play(browser,width,{phone=false,offline=false,theme='light',branc
   console.log(width,theme,offline?'offline file://':keyboard?'keyboard':'native browser',branch+'→'+repair,'PASS');
   await ctx.close();
 }
+async function appearance(browser,{offline=false,width=320}={}) {
+  const ctx=await browser.newContext({viewport:{width,height:790},colorScheme:'dark',offline});
+  const page=await ctx.newPage();
+  const errors=[];
+  page.on('pageerror',e=>errors.push(String(e)));
+  const url=offline?pathToFileURL(path.join(root,'index.html')).href:'http://127.0.0.1:'+server.address().port+'/troll-factory/';
+  const mode=page.getByRole('combobox',{name:'Appearance'});
+  const scheme=()=>page.evaluate(()=>getComputedStyle(document.documentElement).colorScheme);
+  try {
+    await page.goto(url);
+    assert.equal(await mode.inputValue(),'system');
+    assert.equal(await scheme(),'dark');
+    await page.emulateMedia({colorScheme:'light'});
+    assert.equal(await scheme(),'light');
+    await page.locator('#begin').click();
+    await page.locator('#view-notice').click();
+    await page.locator('#pin-notice').click();
+    await mode.focus();
+    await mode.press('End');
+    assert.equal(await mode.inputValue(),'dark');
+    assert.equal(await scheme(),'dark');
+    assert.match(await page.locator('#source-reader').innerText(),/Tide Library/);
+    assert.equal(await page.locator('#pin-notice').getAttribute('aria-pressed'),'true');
+    assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1), 'appearance control causes horizontal overflow');
+    await page.screenshot({path:path.join(shots,'appearance-'+width+'-dark.png')});
+    await page.locator('.teacher-link').click();
+    assert.match(page.url(),/teacher\.html\?theme=dark$/);
+    assert.equal(await mode.inputValue(),'dark');
+    assert.equal(await scheme(),'dark');
+    await mode.selectOption('light');
+    await page.emulateMedia({colorScheme:'dark'});
+    assert.equal(await scheme(),'light');
+    await page.getByRole('link',{name:/printable student takeaway/i}).click();
+    assert.equal(await mode.inputValue(),'light');
+    assert.equal(await scheme(),'light');
+    await mode.selectOption('system');
+    assert.equal(await scheme(),'dark');
+    await page.getByRole('link',{name:/Back to the case/}).click();
+    assert.equal(await mode.inputValue(),'system');
+    assert.equal(new URL(page.url()).searchParams.has('theme'),false);
+    assert.deepEqual(await page.evaluate(()=>[localStorage.length,sessionStorage.length]),[0,0]);
+    if(!offline) {
+      await mode.selectOption('dark');
+      assert.equal(new URL(page.url()).searchParams.get('theme'),'dark');
+      await page.reload();
+      assert.equal(await mode.inputValue(),'dark');
+      assert.equal(await scheme(),'dark');
+    }
+    assert.deepEqual(errors,[]);
+    console.log(width,offline?'file://':'HTTP','appearance toggles, OS changes, carried links and no storage PASS');
+  } finally { await ctx.close(); }
+}
 (async()=>{
   await new Promise(r=>server.listen(0,'127.0.0.1',r));
   const b=await chromium.launch({executablePath:process.env.CHROMIUM_PATH||undefined,headless:true,args:['--no-sandbox','--disable-dev-shm-usage']});
@@ -180,5 +232,7 @@ async function play(browser,width,{phone=false,offline=false,theme='light',branc
     await play(b,768,{theme:'dark',branch:'qualify',repair:'wait',full:true});
     await play(b,1920,{theme:'dark',branch:'hold',full:true});
     await weakEvidence(b);
+    await appearance(b);
+    await appearance(b,{offline:true,width:390});
   } finally {await b.close();server.close();}
 })().catch(e=>{console.error(e);server.close();process.exitCode=1;});
