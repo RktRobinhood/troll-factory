@@ -1,6 +1,6 @@
 # Troll Factory: classroom pilot
 
-**Play:** open `site/index.html` directly in a modern browser or serve this directory as static files. No setup or network required. Play as a desk editor at the fictional Harbor Desk. Teacher materials: `teacher.html`; note-ready print view: `takeaway.html`.
+**Play:** open `site/index.html` directly in a modern browser or serve this directory as static files. No setup or network required. Play as a desk editor at the fictional Harbor Desk. Teacher materials: `teacher.html`; note-ready print view: `takeaway.html`; optional before-debrief cold transfer: `transfer.html`.
 
 ## Layout
 - `episodes/harbor-hall.js`: data-only fictional briefing, sources with origin IDs, claim verdicts, publication branches, recovery and transfer. All scenario text, roles and names are original; no historical screenshot/person/face or live content.
