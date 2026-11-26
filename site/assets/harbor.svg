@@ -1,12 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 640" fill="none">
-<defs><pattern id="grid" width="33" height="33" patternUnits="userSpaceOnUse"><path d="M33 0H0v33" stroke="#92a296" stroke-opacity=".27"/></pattern><pattern id="water" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(27)"><path d="M0 0v9" stroke="#44575b" stroke-opacity=".25"/></pattern></defs>
-<path fill="#dfe1d2" d="M0 0h820v640H0z"/><path fill="url(#grid)" d="M0 0h820v640H0z"/>
-<path d="M0 380l119-29 78-60 86 34 50 75 62 22 38-56 39-21 91 20 39-39v-53l63-43 85 2 70-18v426H0z" fill="#859e9b" stroke="#354f50" stroke-width="2"/><path d="M0 380l119-29 78-60 86 34 50 75 62 22 38-56 39-21 91 20 39-39v-53l63-43 85 2 70-18v426H0z" fill="url(#water)"/>
-<g stroke="#687872" stroke-width="2"><path d="M-24 165l97-12 79-50 80-14 183 117 92 3 102-21 122-69 109 2M-10 256l98 9 161-70 39-84 93-101m-74 179 58 63 47 105m-74-100 135-17 24 99M86 138l47 45m14-85 25 47m290 21 57 28 36 64m-5-170 48 80 41 35m39-91 29 48m29 48 60-26"/><path d="m56 376 14 43 79-19-8-43m181 55 57 95m190-127 39 74 57-30-25-61m65-92v63h80v-82"/></g>
-<g fill="#eaeade" stroke="#576862" stroke-width="2"><path d="M191 160l47-20 33 20-19 24-47 11zM328 166l26-21 57 38-20 20zM477 86l39-8 21 35-44 13zM596 105l25-15 25 36-29 17zM117 233l55-19 16 22-58 23zM291 274l30-12 18 22-25 22zM484 296l43-13 18 29-51 13zM704 282h67v42h-67z"/></g>
-<g fill="none" stroke="#efe7c9" stroke-width="5" stroke-linecap="round"><path d="M-18 167l91-14 79-50 80-14 183 117 92 3 102-21 122-69 109 2"/><path d="M-10 256l98 9 161-70 39-84 93-101"/></g>
-<path d="M67 492c96 32 234 66 358 37 102-24 167-125 288-136" stroke="#ebeee0" stroke-width="2" stroke-dasharray="10 11"/>
-<g fill="#344b49" font-family="monospace" letter-spacing="4"><text x="53" y="57" font-size="18">ALDERHAVEN WATERFRONT</text><text x="67" y="555" font-size="15">INNER HARBOR</text><text x="647" y="553" font-size="13">DISTRICT 04</text></g>
-<g transform="translate(716 52)" stroke="#334b49" stroke-width="2"><path d="M24 0v52M0 26h48M24 3l-8 21 8-5 8 5z" fill="#334b49"/><circle cx="24" cy="26" r="20"/></g>
-<path d="M38 598h112m-112-5v10m56-10v10m56-10v10" stroke="#354e4f" stroke-width="2"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="652" viewBox="0 0 840 652">
+  <defs>
+    <pattern id="dots" width="5" height="5" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".58" fill="#162d36" opacity=".33"/></pattern>
+    <pattern id="water" width="74" height="19" patternUnits="userSpaceOnUse"><path d="M0 2h21m8 11h37M1 17h8" stroke="#92abb0" stroke-width="1" opacity=".35"/></pattern>
+    <pattern id="lead" width="11" height="5" patternUnits="userSpaceOnUse"><path d="M1 1h7" stroke="#f1e5cd" opacity=".26"/></pattern>
+    <clipPath id="frame"><path d="M0 0h840v652H0z"/></clipPath>
+  </defs>
+  <g clip-path="url(#frame)">
+    <path fill="#e4d7bc" d="M0 0h840v652H0z"/>
+    <path fill="url(#dots)" d="M0 0h840v652H0z"/>
+    <circle cx="576" cy="182" r="110" fill="#ba4f33"/>
+    <path d="M0 256h840M0 264h840M0 290h840M0 305h840M0 331h840M0 347h840" stroke="#f3e9d6" stroke-width="2" opacity=".85"/>
+    <!-- Far shore and piers. No in-game evidence is encoded in the art. -->
+    <path d="M0 322 63 305l31 10 40-20 24 13 48-9 77 17 51-18 49 14 53-21 56 12 22 21 36-23 82 4 35-16 54 19 49-8 70 16v101H0z" fill="#9aabad"/>
+    <path d="M469 342v-24l25-13 35 10v27h16v-39l43-18 38 18v37h20v-24l28-13 37 6v35h19v-42l39-17 43 16v52z" fill="#536d75"/>
+    <path d="M581 292v-52h9v48m153 15v-84h8v86m-23-62h69m-37 0 35 18v29m-114 20v-62h6v57m-6-55 34 19" fill="none" stroke="#536d75" stroke-width="4"/>
+    <path fill="#314e59" d="M0 353h840v299H0z"/>
+    <path fill="url(#water)" d="M0 355h840v297H0z"/>
+    <path d="m510 378 203-14m-156 37 154-15m-115 63 244-32m-326 80 281-48M518 529h161m52 18h109m-247 32 103-12m-151 44h197" fill="none" stroke="#c4d2cd" stroke-width="2" opacity=".48"/>
+    <path d="M840 494 674 516l-2 8 168-10m0 10-224 17-6 9 230-6m-162-22-6 54m48-58-5 52m53-58-6 50m42-53-4 46" fill="#19323d" stroke="#19323d" stroke-width="4"/>
+    <!-- Near-side civic hall: roof, masonry, steps, lamps and quayside. -->
+    <path d="M0 461 450 403l80 42L285 652H0z" fill="#8c9da0"/>
+    <path d="m0 553 462-143 67 34-254 208H0z" fill="#506974"/>
+    <path d="M0 529 456 413l75 30-245 209H0v-21l504-188-49-19L0 554z" fill="#203945"/>
+    <path d="m0 600 252-113m-121 165 227-176m-5 93-135-44m174 12-141-34m173 5-132-27" stroke="#adc0bd" opacity=".56" fill="none" stroke-width="2"/>
+    <path d="M60 433v-202l219-45 169 95v134l-176 52z" fill="#243b47"/>
+    <path d="M69 425V243l218 29v177z" fill="#6c858b"/>
+    <path d="M70 425V244l218 28v181z" fill="url(#lead)"/>
+    <path d="M278 451V270l164 18v125z" fill="#405d66"/>
+    <path d="m39 244 89-112 172 21 160 123-185 4z" fill="#172e38"/>
+    <path d="m128 132 147 147 185-3-161-123z" fill="#59737a"/>
+    <path d="M136 137 279 267l167 3m-287-130 139 127m-117-125 136 125m-111-122 133 120m-108-116 127 116m-105-114 126 114m-102-111 122 109m-94-104 113 99" fill="none" stroke="#263f49" stroke-width="2"/>
+    <path d="m57 245 73-89 122 104z" fill="#334e57"/>
+    <path d="m85 241 46-65 84 74z" fill="#c6c4a8" opacity=".62"/>
+    <circle cx="132" cy="215" r="16" fill="#25434e"/>
+    <path d="M132 204v12l7 4" fill="none" stroke="#d9ccae" stroke-width="2"/>
+    <path d="M87 427v-79q0-36 22-34t22 39v82m14 4v-81q0-36 22-34t22 40v79m12 3v-82q0-37 23-34t23 40v81" fill="#182d37" stroke="#b3b7a4" stroke-width="4"/>
+    <path d="M96 425v-75q0-23 11-25 16 3 16 26v81m31 5v-78q0-23 11-25 16 3 16 26v83m29 2v-81q0-23 12-25 17 3 17 26v85" stroke="#e1bf81" opacity=".79" stroke-width="3" fill="none"/>
+    <path d="M72 281 273 307m-201-15 201 26m-201 93 202 32m15-132 144-4m-144 18 144-10" stroke="#b3b7a4" opacity=".69" fill="none" stroke-width="3"/>
+    <path d="m298 439 141-40v27l-142 47-225-30v-18l205 28z" fill="#223843"/>
+    <path d="M298 453 442 409m-144 56 143-46M72 434l217 31" stroke="#9baaa2" opacity=".72" fill="none" stroke-width="2"/>
+    <path d="M318 426v-57q0-25 13-30 15-5 15 22v56m21-6v-56q0-23 12-27 14-6 14 19v49m16 2v-59q0-20 10-23 11-4 11 14v60" fill="#203540" stroke="#b8ba9f" stroke-width="2.4"/>
+    <path d="M36 549V362h14m-19 5 7-14h16l8 14zm359-88v-60h4v61m3 145v-76h9m-13 3 5-10h11l5 10z" fill="#c9a463" stroke="#1a333d" stroke-width="3"/>
+    <path d="M0 0h840v652H0z" fill="url(#dots)" opacity=".44"/>
+    <!-- Plate marks, caption band and the red grease-pencil registration. -->
+    <path d="M44 64V42h24m704 0h24v22M44 573v22h24m704 0h24v-22" stroke="#dfdfc0" stroke-width="2" fill="none"/>
+    <path d="M45 602h750" stroke="#dcd4b8" opacity=".8"/>
+    <text x="46" y="628" fill="#ece3cd" font-family="monospace" font-size="14" letter-spacing="3">ALDERHAVEN  /  HARBOR DISTRICT</text>
+    <text x="793" y="628" fill="#ece3cd" text-anchor="end" font-family="monospace" font-size="14" letter-spacing="3">PLATE 01</text>
+    <path d="M115 129q82-45 195 41m-201-33q93-41 200 41m-201-43-4 20 21-3m191 22 29-19" stroke="#a53e2f" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <text x="58" y="89" fill="#273d42" font-family="monospace" font-size="19" font-weight="700" letter-spacing="4">HARBOR HALL</text>
+    <path d="M59 103h202l13 19h49" fill="none" stroke="#394d50" stroke-width="1.4" stroke-dasharray="3 5"/>
+  </g>
 </svg>
