@@ -80,6 +80,7 @@
     workflow.hidden=state.page==='brief';
     bar.innerHTML=G.phases.slice(1).map((key,i)=>`<li${state.page===key?' aria-current="step"':''} class="${G.phases.indexOf(state.page)>i+1?'complete':''}"><span>${i+1}</span>${e(labels[key])}</li>`).join('');
     desk.innerHTML=renderers[state.page]();
+    window.TrollTheme?.syncLinks();
     if(focus) document.getElementById(focus)?.focus({preventScroll:false});
   }
   function dispatch(a, target) {
