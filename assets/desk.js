@@ -80,6 +80,7 @@
     const prev=state;
     state=G.step(state,a,E);
     if(state===prev) return;
+    window.TrollTheme?.syncLinks();
     const changesPage=state.page!==prev.page;
     if(changesPage) window.scrollTo(0,0);
     if(['claim','transfer','relation','choose'].includes(a.type)) {
