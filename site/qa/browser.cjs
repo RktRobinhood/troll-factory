@@ -1,7 +1,7 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),http=require('node:http'),path=require('node:path');
 const {pathToFileURL}=require('node:url');
 const { chromium }=require(process.env.PLAYWRIGHT_MODULE||'playwright');
-const root=path.resolve(__dirname,'..'), shots=path.join(__dirname,'screens');
+const root=path.resolve(process.env.TROLL_SITE_ROOT||path.join(__dirname,'..')), shots=process.env.TROLL_SCREENSHOTS||path.join(__dirname,'screens');
 fs.mkdirSync(shots,{recursive:true});
 const mime={'.html':'text/html','.js':'text/javascript','.css':'text/css','.svg':'image/svg+xml'};
 const server=http.createServer((req,res)=>{
@@ -71,6 +71,21 @@ async function play(browser,width,{phone=false,offline=false,theme='light',branc
   const shot=async(name)=>{if(full)await page.screenshot({path:path.join(shots,width+'-'+theme+'-'+name+'.png'),fullPage:false});};
   await page.goto(offline?file:base);
   assert.match(await read(TITLE),/The Harbor\s*Hall Tip/);
+  assert(await page.locator('.map img').evaluate(img=>img.complete&&img.naturalWidth===840));
+  assert.match(await read('.map figcaption'),/Case illustration/);
+  const contrast=await page.evaluate(()=>{
+    const style=getComputedStyle(document.documentElement);
+    const luminance=name=>{
+      const hex=style.getPropertyValue('--'+name).trim().slice(1);
+      const rgb=hex.match(/../g).map(channel=>parseInt(channel,16)/255);
+      return rgb.reduce((acc,val,i)=>acc+[.2126,.7152,.0722][i]*(val<=.04045?val/12.92:((val+.055)/1.055)**2.4),0);
+    };
+    return [['ink','bg'],['muted','bg'],['muted','paper'],['amber','paper'],['amber','bg'],['green','paper'],['green','soft'],['on-dark','dark']].map(pair=>{
+      const [dark,light]=pair.map(luminance).sort((a,b)=>a-b);
+      return {pair,ratio:(light+.05)/(dark+.05)};
+    });
+  });
+  contrast.forEach(({pair,ratio})=>assert(ratio>=4.5,`${theme} ${pair.join('/')} contrast: ${ratio.toFixed(2)}`));
   await fit(); await shot('brief');
   if(keyboard){
     await page.keyboard.press('Tab'); assert.equal(await active(),'');
@@ -87,14 +102,23 @@ async function play(browser,width,{phone=false,offline=false,theme='light',branc
   assert.match(await read('#origin-note'),/part of the town clerk/);
   await tap('#pin-post');
   await tap('#view-notice');await tap('#pin-notice');
-  assert.equal(await visible('#pair-origin-notice'),false);
-  await tap('#view-resident');
-  await tap('#trace-notice-in-compare');
-  assert.equal(await active(),'pair-origin-notice');
-  assert.match(await read('#pair-origin-notice'),/original register entry/i);
-  assert.match(await read('#source-reader'),/resident/i);
-  assert.equal(await visible('#trace-notice-in-compare'),false);
-  await tap('#view-notice');assert.match(await read('#origin-note'),/original register entry/i);
+  assert.equal(await page.locator('#source-reader').getAttribute('data-source-kind'),'paper');
+  assert.match(await read('.evidence-document .byline'),/public register/);
+  assert.match(await read('.evidence-document blockquote'),/Tide Library/);
+  await fit();await shot('evidence');
+  if(await page.locator('#trace-notice-in-compare').count()) {
+    assert.equal(await visible('#pair-origin-notice'),false);
+    await tap('#view-resident');
+    await tap('#trace-notice-in-compare');
+    assert.equal(await active(),'pair-origin-notice');
+    assert.match(await read('#pair-origin-notice'),/original register entry/i);
+    assert.match(await read('#source-reader'),/resident/i);
+    assert.equal(await visible('#trace-notice-in-compare'),false);
+    await tap('#view-notice');assert.match(await read('#origin-note'),/original register entry/i);
+  } else {
+    assert(process.env.TROLL_SITE_ROOT, 'main must offer tracing from pinned exhibits');
+    await tap('#trace-notice');assert.match(await read('#origin-note'),/original register entry/i);
+  }
   await page.locator('#relation-choice').selectOption('independent');await tap('#compare');
   assert.match(await read('#comparison-feedback'),/Recheck: One origin repeated/);
   await tap('#view-library');await tap('#trace-library');await tap('#pin-library');
@@ -153,7 +177,8 @@ async function play(browser,width,{phone=false,offline=false,theme='light',branc
     await play(b,320,{phone:true,theme:'dark',branch:'hold',full:true});
     await play(b,1280,{keyboard:true,branch:'publish',repair:'wait',full:true});
     await play(b,390,{offline:true,phone:true,branch:'hold',repair:'wait'});
-    await play(b,900,{branch:'qualify',repair:'wait'});
+    await play(b,768,{theme:'dark',branch:'qualify',repair:'wait',full:true});
+    await play(b,1920,{theme:'dark',branch:'hold',full:true});
     await weakEvidence(b);
   } finally {await b.close();server.close();}
 })().catch(e=>{console.error(e);server.close();process.exitCode=1;});
