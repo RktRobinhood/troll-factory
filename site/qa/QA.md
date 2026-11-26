@@ -9,3 +9,6 @@ Tested the authored first episode as a self-paced classroom pilot. It is not a c
 - The 320 dark and 390 light screenshots, the desktop briefing and review, the mobile comparison and the transfer were visually inspected. Playwright emulates narrow touch viewports, not full physical handset coverage; a native screen-reader session and a live classroom trial were not run. Play time is an estimate, not measured efficacy.
 
 Use the browser test command to reproduce these results. Test captures and logs do not belong in the classroom site.
+
+## Nov 26: trace a pinned source without leaving comparison
+The same provenance can be opened from its reader or a pinned comparison card; opening it in the comparison doesn't switch the current reader. Focus moves to the newly revealed note. Unopened and unpinned sources are denied, evidence/claims still use the same engine, and resetting clears the trace. Exact local Chromium passed all six editorial/recovery routes plus the weak-evidence recovery, 320/390 touch, short desktop keyboard, and no-network file mode. Inspected the dark 320 and light 390 comparison captures; no capture or raw research is a deployable asset.

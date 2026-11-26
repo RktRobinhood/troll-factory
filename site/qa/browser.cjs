@@ -86,7 +86,15 @@ async function play(browser,width,{phone=false,offline=false,theme='light',branc
   await tap('#trace-post');assert.equal(await active(),'origin-note');
   assert.match(await read('#origin-note'),/part of the town clerk/);
   await tap('#pin-post');
-  await tap('#view-notice');await tap('#trace-notice');await tap('#pin-notice');
+  await tap('#view-notice');await tap('#pin-notice');
+  assert.equal(await visible('#pair-origin-notice'),false);
+  await tap('#view-resident');
+  await tap('#trace-notice-in-compare');
+  assert.equal(await active(),'pair-origin-notice');
+  assert.match(await read('#pair-origin-notice'),/original register entry/i);
+  assert.match(await read('#source-reader'),/resident/i);
+  assert.equal(await visible('#trace-notice-in-compare'),false);
+  await tap('#view-notice');assert.match(await read('#origin-note'),/original register entry/i);
   await page.locator('#relation-choice').selectOption('independent');await tap('#compare');
   assert.match(await read('#comparison-feedback'),/Recheck: One origin repeated/);
   await tap('#view-library');await tap('#trace-library');await tap('#pin-library');

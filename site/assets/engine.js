@@ -25,7 +25,7 @@
         return {...s,viewed:id,opened:s.opened.includes(id)?s.opened:[...s.opened,id]};
       }
       case 'trace': {
-        if(!on('evidence') || s.viewed!==id || !s.opened.includes(id) || s.traced.includes(id)) return s;
+        if(!on('evidence') || (s.viewed!==id && !s.pair.includes(id)) || !s.opened.includes(id) || s.traced.includes(id)) return s;
         return {...s,traced:[...s.traced,id]};
       }
       case 'pin': {

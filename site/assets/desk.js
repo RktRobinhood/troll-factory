@@ -27,11 +27,17 @@
     return `<article class="reader" id="source-reader"><p class="kicker">${e(s.no)} / ${e(s.type.toUpperCase())}</p><h2 id="reader-title" tabindex="-1">${e(s.name)}</h2><p class="byline">${e(s.by)} · ${e(s.at)}</p><blockquote>${e(s.text)}</blockquote><p>${e(s.meta)}</p><div class="actions">${button('pin',pinned?'Unpin source':'Pin to compare',{id:s.id,klass:'secondary',extra:`aria-pressed="${pinned}"`})}${button('trace',traced?'Origin revealed':'Trace its origin',{id:s.id,klass:'ghost',disabled:traced})}<a class="back-to-sources" href="#sources-title">← Sources</a></div>
      ${traced?`<p class="origin" id="origin-note" tabindex="-1"><strong>Provenance.</strong> ${e(s.lineage)}</p>`:''}</article>`;
   }
+  function pinnedSource(s) {
+    const traced=state.traced.includes(s.id);
+    return `<article><p class="kicker">${e(s.at)} · ${e(s.type)}</p><h3>${e(s.name)}</h3><p>${e(s.text)}</p>
+      ${traced?`<p class="origin pair-origin" id="pair-origin-${e(s.id)}" tabindex="-1"><strong>Origin.</strong> ${e(s.lineage)}</p>`:
+        button('trace', 'Trace origin', {id:s.id+'-in-compare',klass:'ghost pair-trace',extra:`data-source="${e(s.id)}" aria-label="Trace origin of ${e(s.name)}"`})}</article>`;
+  }
   function compareBlock() {
     const pair=state.pair.map(id=>get(E.sources,id));
     const result=G.compare(E,state.pair);
     return `<section class="compare" aria-labelledby="compare-title"><div class="panel-heading"><div><p class="kicker">CROSS-CHECK</p><h2 id="compare-title">Compare two sources</h2></div><span class="count">${pair.length}/2 pinned</span></div>
-    <div class="pair">${[0,1].map(i=>pair[i]?`<article><p class="kicker">${e(pair[i].at)} · ${e(pair[i].type)}</p><h3>${e(pair[i].name)}</h3><p>${e(pair[i].text)}</p>${state.traced.includes(pair[i].id)?`<small>${e(pair[i].lineage)}</small>`:''}</article>`:`<div class="empty">Pin another source to compare</div>`).join('')}</div>
+    <div class="pair">${[0,1].map(i=>pair[i]?pinnedSource(pair[i]):`<div class="empty">Pin another source to compare</div>`).join('')}</div>
     ${result?state.compared?`<div class="feedback" id="comparison-feedback" tabindex="-1"><strong>${state.relation===result?'Right:':'Recheck:'} ${e(get(E.relationships,result).label)}.</strong> ${result==='shared'?'Two versions of the same material count as one origin, not corroboration.':'These sources do not borrow from each other. Independent accounts support only what those sources observed.'}</div>`:`<div class="compare-controls"><label for="relation-choice">Do they draw on the same source?</label><select id="relation-choice" data-act="relation"><option value="" disabled${state.relation?'':' selected'}>Choose relationship</option>${E.relationships.map(x=>`<option value="${e(x.id)}"${state.relation===x.id?' selected':''}>${e(x.label)}</option>`).join('')}</select>${button('compare','Check comparison',{disabled:!state.relation,klass:'secondary'})}</div>`:''}</section>`;
   }
   function coverageTip() {
@@ -95,7 +101,8 @@
       const narrow=window.matchMedia('(max-width: 680px)').matches;
       return render(narrow||target.endsWith('-from-tip')?'reader-title':target);
     }
-    render(changesPage?'scene-title':({trace:'origin-note',compare:'comparison-feedback',check:'transfer-results'}[a.type]||target));
+    const traceFocus=target.endsWith('-in-compare')?'pair-origin-'+a.id:'origin-note';
+    render(changesPage?'scene-title':({trace:traceFocus,compare:'comparison-feedback',check:'transfer-results'}[a.type]||target));
   }
   desk.addEventListener('click',event=>{
     const target=event.target.closest('button[data-act]');
